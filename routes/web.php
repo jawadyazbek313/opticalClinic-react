@@ -100,7 +100,7 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
             
         }
     } else {
-        
+        // Comment to test update 
         echo "Latest Version installed ".$updater->source()->getVersionInstalled();
     }
 
