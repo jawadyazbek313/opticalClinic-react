@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', 'v1.03'),
+    'version_installed' => env('SELF_UPDATER_VERSION_INSTALLED', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -43,8 +43,8 @@ return [
         'github' => [
             'type'                 => 'github',
             'repository_vendor'    => env('SELF_UPDATER_REPO_VENDOR', 'jawadyazbek313'),
-            'repository_name'      => env('SELF_UPDATER_REPO_NAME', 'opticalClinic'),
-            'repository_url'       => 'https://github.com/jawadyazbek313/opticalClinic',
+            'repository_name'      => env('SELF_UPDATER_REPO_NAME', 'opticalClinic-react'),
+            'repository_url'       => 'https://github.com/jawadyazbek313/opticalClinic-react',
             'download_path'        => env('SELF_UPDATER_DOWNLOAD_PATH', '/tmp'),
             'private_access_token' => env('SELF_UPDATER_GITHUB_PRIVATE_ACCESS_TOKEN', ''),
             'use_branch'           => env('SELF_UPDATER_USE_BRANCH', ''),

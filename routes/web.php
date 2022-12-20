@@ -106,3 +106,10 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
 
 });
 
+// Route to Update The program Via the button
+Route::get('/hello', function () {
+echo "hello" ;
+
+
+
+});
