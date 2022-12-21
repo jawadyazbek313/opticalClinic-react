@@ -75,30 +75,33 @@ Route::middleware('auth')->get('setRole',function () {
 // Route to Update The program Via the button
 Route::get('/UpdateApplication', function (UpdaterManager $updater) {
 
-
-
+    // echo $versionAvailable = $updater->source()->getVersionAvailable();
+    // echo $updater->source()->getVersionInstalled();
+    // Get the new version available
+   
     // Check if new version is available
     if($updater->source()->isNewVersionAvailable()) {
 
         // Get the current installed version
-        echo $updater->source()->getVersionInstalled();
+         $updater->source()->getVersionInstalled();
         // Get the new version available
-        echo $versionAvailable = $updater->source()->getVersionAvailable();
+         $versionAvailable = $updater->source()->getVersionAvailable();
         // Create a release
         $release = $updater->source()->fetch($versionAvailable);
+       
         // Run the update process
         
         $updater->source()->update($release);
         $path = base_path('.env');
 
         if (file_exists($path)) {
-            file_put_contents($path, str_replace(
-                'SELF_UPDATER_VERSION_INSTALLED='.$this->laravel['config']['app.key'], 'SELF_UPDATER_VERSION_INSTALLED='.$versionAvailable, file_get_contents($path)
-            ));
+            if(file_put_contents($path, str_replace(
+                'SELF_UPDATER_VERSION_INSTALLED='.$updater->source()->getVersionInstalled(), 'SELF_UPDATER_VERSION_INSTALLED='.$versionAvailable = $updater->source()->getVersionAvailable(), file_get_contents($path)
+            ))){
             // Change Value Using It
             Artisan::call('config:cache');
-            
-        }
+            echo "Updated";
+        }}
     } else {
         // Comment to test update 
         echo "Latest Version installed ".$updater->source()->getVersionInstalled();
