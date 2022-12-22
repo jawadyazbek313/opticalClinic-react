@@ -1014,7 +1014,7 @@
   'self-update' => 
   array (
     'default' => 'github',
-    'version_installed' => '1.0',
+    'version_installed' => '1.0.4',
     'repository_types' => 
     array (
       'github' => 
@@ -1037,8 +1037,8 @@
       'http' => 
       array (
         'type' => 'http',
-        'repository_url' => '',
-        'pkg_filename_format' => 'v_VERSION_',
+        'repository_url' => 'https://revieraresto.000webhostapp.com/versions',
+        'pkg_filename_format' => 'opticalClinic-v_VERSION_',
         'download_path' => '/tmp',
         'private_access_token' => '',
       ),

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
-
+use Illuminate\Support\Facades\File;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,9 +83,9 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
     if($updater->source()->isNewVersionAvailable()) {
 
         // Get the current installed version
-         $updater->source()->getVersionInstalled();
+         echo$updater->source()->getVersionInstalled();
         // Get the new version available
-         $versionAvailable = $updater->source()->getVersionAvailable();
+         echo $versionAvailable = $updater->source()->getVersionAvailable();
         // Create a release
         $release = $updater->source()->fetch($versionAvailable);
        
@@ -99,8 +99,11 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
                 'SELF_UPDATER_VERSION_INSTALLED='.$updater->source()->getVersionInstalled(), 'SELF_UPDATER_VERSION_INSTALLED='.$versionAvailable = $updater->source()->getVersionAvailable(), file_get_contents($path)
             ))){
             // Change Value Using It
+            Artisan::call('optimize:clear');
             Artisan::call('config:cache');
-            echo "Updated";
+            if(file_exists(storage_path('app/self-updater-new-version')))
+            File::delete(storage_path('app/self-updater-new-version'));
+            echo " Updated";
         }}
     } else {
         // Comment to test update 
@@ -110,8 +113,8 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
 });
 
 // Route to Update The program Via the button
-Route::get('/hello', function () {
-echo "hello" ;
+Route::get('/helloWorld', function () {
+echo "hello World Its Working Fine" ;
 
 
 
