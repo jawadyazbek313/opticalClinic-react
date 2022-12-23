@@ -16,7 +16,6 @@ import { blue } from "@mui/material/colors";
 import { Grid } from "@mui/material";
 import FilesListItem from "./FilesListItem";
 
-const emails = ["username@gmail.com", "user02@gmail.com"];
 
 function SimpleDialog(props) {
     const { onClose, open,data,setCurrentFile,setOpenPDFViewer } = props;

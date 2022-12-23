@@ -92,8 +92,10 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
     // echo $updater->source()->getVersionInstalled();
     // Get the new version available
     if(!is_connected()){
-        $response='Check Internet Connection Then Try Again';    
-        return view('updatePage',compact('response'));return "Check Internet Connection Then Try Again";
+        $response='connectionError'; 
+        $version= $updater->source()->getVersionInstalled();
+           
+        return view('updatePage',compact('response','version'));
 }
     // Check if new version is available
     if ($updater->source()->isNewVersionAvailable()) {
@@ -122,14 +124,16 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
                 Artisan::call('storage:link');
                 if (file_exists(storage_path('app/self-updater-new-version')))
                     File::delete(storage_path('app/self-updater-new-version'));
-                $response="Updated";
-               return view('updatePage',compact('response'));
+                $response="updated";
+                $version= $updater->source()->getVersionInstalled();
+                return view('updatePage',compact('response','version'));
             }
         }
     } else {
         // Comment to test update 
-        $response="Latest Version installed " . $updater->source()->getVersionInstalled();
-        return view('updatePage',compact('response'));
+        $response="latest";
+        $version= $updater->source()->getVersionInstalled();
+        return view('updatePage',compact('response','version'));
         
     }
 })->name('UpdateApp')->middleware('auth');
