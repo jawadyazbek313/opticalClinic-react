@@ -131,6 +131,6 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
         return view('updatePage',compact('response'));
         
     }
-})->name('UpdateApp')->middleware('web');
+})->name('UpdateApp')->middleware('auth');
 
 // Route to Update The program Via the button

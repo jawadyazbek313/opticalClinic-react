@@ -223,13 +223,14 @@
                             </li>
 
                         @endguest
-                     
-                      <li class="nav-item dropdown">
+                     @auth
+                     <li class="nav-item dropdown">
                         <a class="nav-link" href="{{ route('UpdateApp') }}">
                           {{ __('lang.Update') }}
                         </a>
-                        
-                    </li>
+                    </li>   
+                     @endauth
+                      
                      
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
