@@ -119,6 +119,7 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
                 // Change Value Using It
                 Artisan::call('optimize:clear');
                 Artisan::call('config:cache');
+                Artisan::call('storage:link');
                 if (file_exists(storage_path('app/self-updater-new-version')))
                     File::delete(storage_path('app/self-updater-new-version'));
                 $response="Updated";
