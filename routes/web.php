@@ -10,6 +10,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
 use Codedge\Updater\UpdaterManager;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -35,11 +36,11 @@ Route::resource('/patient', PatientController::class);
 Route::resource('/appointment', AppointmentController::class);
 
 Route::post('/appointment/{id}/MarkDone', [AppointmentController::class, 'MarkDone'])->name('MarkDone');
-Route::get('/go/fetch_data', [App\Http\Controllers\HomeController::class,'fetch_data'])->name('Fetch_data');
-Route::get('/appointments/trashlist', [App\Http\Controllers\AppointmentController::class,'trashlist'])->name('appointment.trashlist');
-Route::get('/appointment/{id}/restore', [App\Http\Controllers\AppointmentController::class,'restore'])->name('appointment.Restore');
-Route::get('/appointments/trashlistrefresh', [App\Http\Controllers\AppointmentController::class,'trashlistrefresh'])->name('appointment.trashlistrefresh');
-Route::post('/appointment/trash', [App\Http\Controllers\AppointmentController::class,'trash'])->name('appointment.trash');
+Route::get('/go/fetch_data', [App\Http\Controllers\HomeController::class, 'fetch_data'])->name('Fetch_data');
+Route::get('/appointments/trashlist', [App\Http\Controllers\AppointmentController::class, 'trashlist'])->name('appointment.trashlist');
+Route::get('/appointment/{id}/restore', [App\Http\Controllers\AppointmentController::class, 'restore'])->name('appointment.Restore');
+Route::get('/appointments/trashlistrefresh', [App\Http\Controllers\AppointmentController::class, 'trashlistrefresh'])->name('appointment.trashlistrefresh');
+Route::post('/appointment/trash', [App\Http\Controllers\AppointmentController::class, 'trash'])->name('appointment.trash');
 Route::view('/chat', 'chats.chat');
 
 // Route::group(, function () {
@@ -59,14 +60,14 @@ Route::view('/chat', 'chats.chat');
 //     Route::resource('users', UsersController::class);
 //     Route::delete('users_mass_destroy', 'Admin\UsersController@massDestroy')->name('users.mass_destroy');
 // });
-Route::middleware(['role:admin'])->prefix('admin')->group( function () {
+Route::middleware(['role:admin'])->prefix('admin')->group(function () {
     Route::resource('permissions', PermissionsController::class);
     Route::resource('roles', RolesController::class);
     Route::resource('users', UsersController::class);
 });
 
-Route::middleware('auth')->get('setRole',function () {
-    $user=User::Find(Auth::user()->id);
+Route::middleware('auth')->get('setRole', function () {
+    $user = User::Find(Auth::user()->id);
     $user->assignRole('admin');
     return Redirect::route('home');
 });
@@ -74,48 +75,62 @@ Route::middleware('auth')->get('setRole',function () {
 
 // Route to Update The program Via the button
 Route::get('/UpdateApplication', function (UpdaterManager $updater) {
-
+    $response="";
+    function is_connected()
+    {
+        $connected = @fsockopen('www.google.com', 80);
+        //website, port  (try 80 or 443)
+        if ($connected) {
+            $is_conn = true; //action when connected
+            fclose($connected);
+        } else {
+            $is_conn = false; //action in connection failure
+        }
+        return $is_conn;
+    }
     // echo $versionAvailable = $updater->source()->getVersionAvailable();
     // echo $updater->source()->getVersionInstalled();
     // Get the new version available
-   
+    if(!is_connected()){
+        $response='Check Internet Connection Then Try Again';    
+        return view('updatePage',compact('response'));return "Check Internet Connection Then Try Again";
+}
     // Check if new version is available
-    if($updater->source()->isNewVersionAvailable()) {
+    if ($updater->source()->isNewVersionAvailable()) {
 
         // Get the current installed version
-         echo$updater->source()->getVersionInstalled();
+        echo $updater->source()->getVersionInstalled();
         // Get the new version available
-         echo $versionAvailable = $updater->source()->getVersionAvailable();
+        echo $versionAvailable = $updater->source()->getVersionAvailable();
         // Create a release
         $release = $updater->source()->fetch($versionAvailable);
-       
+
         // Run the update process
-        
+
         $updater->source()->update($release);
         $path = base_path('.env');
 
         if (file_exists($path)) {
-            if(file_put_contents($path, str_replace(
-                'SELF_UPDATER_VERSION_INSTALLED='.$updater->source()->getVersionInstalled(), 'SELF_UPDATER_VERSION_INSTALLED='.$versionAvailable = $updater->source()->getVersionAvailable(), file_get_contents($path)
-            ))){
-            // Change Value Using It
-            Artisan::call('optimize:clear');
-            Artisan::call('config:cache');
-            if(file_exists(storage_path('app/self-updater-new-version')))
-            File::delete(storage_path('app/self-updater-new-version'));
-            echo " Updated";
-        }}
+            if (file_put_contents($path, str_replace(
+                'SELF_UPDATER_VERSION_INSTALLED=' . $updater->source()->getVersionInstalled(),
+                'SELF_UPDATER_VERSION_INSTALLED=' . $versionAvailable = $updater->source()->getVersionAvailable(),
+                file_get_contents($path)
+            ))) {
+                // Change Value Using It
+                Artisan::call('optimize:clear');
+                Artisan::call('config:cache');
+                if (file_exists(storage_path('app/self-updater-new-version')))
+                    File::delete(storage_path('app/self-updater-new-version'));
+                $response="Updated";
+               return view('updatePage',compact('response'));
+            }
+        }
     } else {
         // Comment to test update 
-        echo "Latest Version installed ".$updater->source()->getVersionInstalled();
+        $response="Latest Version installed " . $updater->source()->getVersionInstalled();
+        return view('updatePage',compact('response'));
+        
     }
-
-});
+})->name('UpdateApp');
 
 // Route to Update The program Via the button
-Route::get('/helloWorld', function () {
-echo "hello World Its Working Fine" ;
-
-
-
-});

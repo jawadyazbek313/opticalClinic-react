@@ -118,4 +118,5 @@ return array (
   'NotodayAppointment' => 'There are no Appointments For Today',
   'admin' => 'Admin',
   'NotomorrowAppointment' => 'There are no Appointments For Tomorrow',
+  'Update' => 'Update Application',
 );

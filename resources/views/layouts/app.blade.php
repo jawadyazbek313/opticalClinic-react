@@ -10,12 +10,14 @@
 
 
     @livewireStyles
-  
+
     @powerGridStyles
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <style>.swal2-container {
-        z-index: 20000 !important;
-      }</style>
+    <style>
+        .swal2-container {
+            z-index: 20000 !important;
+        }
+    </style>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
@@ -73,7 +75,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img style="transition: all 0.5s ease-in-out; height: 30px !important;" class="hoverbadges"
-                        src="{{ asset('images/logo (1).png') }}"   alt="">
+                        src="{{ asset('images/logo (1).png') }}" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -221,6 +223,14 @@
                             </li>
 
                         @endguest
+                     
+                      <li class="nav-item dropdown">
+                        <a class="nav-link" href="{{ route('UpdateApp') }}">
+                          {{ __('lang.Update') }}
+                        </a>
+                        
+                    </li>
+                     
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -254,8 +264,8 @@
         $.fn.selectpicker.Constructor.BootstrapVersion = '4';
     </script>
 
-@livewireScripts
-@powerGridScripts
+    @livewireScripts
+    @powerGridScripts
 </body>
 
 </html>
