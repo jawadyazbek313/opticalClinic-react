@@ -99,9 +99,9 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
     if ($updater->source()->isNewVersionAvailable()) {
 
         // Get the current installed version
-        echo $updater->source()->getVersionInstalled();
+        $updater->source()->getVersionInstalled();
         // Get the new version available
-        echo $versionAvailable = $updater->source()->getVersionAvailable();
+        $versionAvailable = $updater->source()->getVersionAvailable();
         // Create a release
         $release = $updater->source()->fetch($versionAvailable);
 
