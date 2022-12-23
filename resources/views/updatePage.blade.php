@@ -12,11 +12,15 @@
               Congratulations Your App is using the Latest Version : {{ $version }}
                 @break
               @case('connectionError')
-              Please Connect to The Internet and Try Again !
-              <br>
-              If This problem persist Ask for Help at 70365713
-              <br>
-              Current Version : <span style="color: red">{{ $version }}</span>
+              <div class="jumbotron">
+                <h1 class="display-5"><div class="alert alert-danger" role="alert">
+                  Please Connect to The Internet and Try Again !
+                </div></h1>
+                <p class="lead">If This problem persist Ask for Help at 70 365 713</p>
+                <hr class="my-4">
+                <p>Current Version : <span style="color: red">{{ $version }}</span></p>
+              </div>
+
                 @break
               @default
                 
