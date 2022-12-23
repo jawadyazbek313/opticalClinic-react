@@ -7,6 +7,8 @@
           <h1 class="text align-self-center p-2">
             @switch($response)
               @case('updated')
+              Updated Successfully!!
+              <br>
               Congratulations Your App is using the Latest Version : {{ $version }}
                 @break
               @case('connectionError')
