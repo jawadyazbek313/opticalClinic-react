@@ -13,6 +13,8 @@
               Please Connect to The Internet and Try Again !
               <br>
               If This problem persist Ask for Help at 70365713
+              <br>
+              Current Version : <span style="color: red">{{ $version }}</span>
                 @break
               @default
                 
