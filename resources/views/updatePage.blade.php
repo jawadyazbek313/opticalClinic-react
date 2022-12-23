@@ -7,14 +7,14 @@
           <h1 class="text align-self-center p-2">
             @switch($response)
               @case('updated')
-              Updated Successfully!!
+              <i class="fa fa-check-square" style="color:green" aria-hidden="true"></i> Updated Successfully!
               <br>
               Congratulations Your App is using the Latest Version : {{ $version }}
                 @break
               @case('connectionError')
               <div class="jumbotron">
                 <h1 class="display-5"><div class="alert alert-danger" role="alert">
-                  Please Connect to The Internet and Try Again !
+                  <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Please Connect to The Internet and Try Again !
                 </div></h1>
                 <p class="lead">If This problem persist Ask for Help at 70 365 713</p>
                 <hr class="my-4">
@@ -23,8 +23,8 @@
 
                 @break
               @default
-                
-              <i class="fa fa-check-square" style="color:green" aria-hidden="true"></i> Up to date , Version <span style="color: red">{{ $version }}</span>
+              <div class="alert alert-success" role="alert">
+              <i class="fa fa-check-square" style="color:green" aria-hidden="true"></i> Up to date , Version <span style="color: red">{{ $version }}</span></div>
             @endswitch
           </h1>
        
