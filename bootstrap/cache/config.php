@@ -1,10 +1,10 @@
 <?php return array (
   'app' => 
   array (
-    'name' => 'Laravel',
+    'name' => 'Optical Clinic',
     'env' => 'local',
     'debug' => true,
-    'url' => 'https://opticalclinic.test',
+    'url' => 'http://opticalclinic.test',
     'asset_url' => NULL,
     'timezone' => 'Asia/Beirut',
     'locale' => 'ar',
@@ -326,7 +326,7 @@
         array (
           0 => 
           array (
-            'host' => '127.0.0.1',
+            'host' => '127.0.0.1:11211',
             'port' => 11211,
             'weight' => 100,
           ),
@@ -352,7 +352,7 @@
         'driver' => 'octane',
       ),
     ),
-    'prefix' => 'laravel_cache',
+    'prefix' => 'optical_clinic_cache',
   ),
   'cors' => 
   array (
@@ -451,7 +451,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'laravel_database_',
+        'prefix' => 'optical_clinic_database_',
       ),
       'default' => 
       array (
@@ -582,7 +582,7 @@
       array (
         'driver' => 'local',
         'root' => 'C:\\laragon\\www\\opticalClinic\\storage\\app/public',
-        'url' => 'https://opticalclinic.test/storage',
+        'url' => 'http://opticalclinic.test/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -899,7 +899,7 @@
     'from' => 
     array (
       'address' => NULL,
-      'name' => 'Laravel',
+      'name' => 'Optical Clinic',
     ),
     'markdown' => 
     array (
@@ -1141,7 +1141,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'laravel_session',
+    'cookie' => 'optical_clinic_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => NULL,

@@ -118,10 +118,10 @@ export default function UsersListWithShowFileAction(props) {
                 )
                 .then((results) => {
                     // console.log(results);
-                    setTimeout(() => {
+                    // setTimeout(() => {
                         setNewData(results);
                         setIsLoading(false);
-                    }, 500);
+                    // }, 500);
                 });
         } else {
             axios
@@ -137,10 +137,10 @@ export default function UsersListWithShowFileAction(props) {
                 )
                 .then((results) => {
                     // console.log(results);
-                    setTimeout(() => {
+                    // setTimeout(() => {
                         setNewData(results);
                         setIsLoading(false);
-                    }, 500);
+                    // }, 500);
                 });
         }
     }, [page, refresh]);
