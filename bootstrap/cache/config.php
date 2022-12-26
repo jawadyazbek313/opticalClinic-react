@@ -1014,7 +1014,7 @@
   'self-update' => 
   array (
     'default' => 'github',
-    'version_installed' => '1.1.8',
+    'version_installed' => '1.1.9',
     'repository_types' => 
     array (
       'github' => 
