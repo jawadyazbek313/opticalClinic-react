@@ -19,4 +19,8 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
     ],
+    output: {
+        filename: '[name].js',
+        chunkFilename: 'js/[name].[chunkhash:6].js',
+      },
 }

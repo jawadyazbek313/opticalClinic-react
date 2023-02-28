@@ -22,23 +22,32 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/patients', function (Request $request) {
+    
     if (isset($request->todayPatients)) {
+       
         if ($request->searchQuery && !(empty($request->searchQuery))) {
 
 
 
-
-            $patients =
-                Patient::whereHas('appointment', function ($query) {
+            $patients =Patient::whereHas('appointment', function ($query) {
                     $query
                         ->where('trashed', 0)
                         ->where('date', '=', date('Y-m-d'))->where('isDone', 0);
                 })
-                ->where(DB::raw('CONCAT(firstname, \' \', midname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                ->where(function ($query) use ($request){
+                    $query 
+                    ->where(DB::raw('CONCAT(firstname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orwhere(DB::raw('CONCAT(firstname, \' \', midname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('firstname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('midname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('lastname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('insurance', 'LIKE',  '%' .  $request->searchQuery . '%')
+                ->orWhere('dob', 'LIKE',  '%' .  $request->searchQuery . '%');
+                })
+                
                 ->with('MediaManually')
                 ->withCount('MediaManually')
                 ->paginate(5);
-
             return $patients;
         } else {
 
@@ -50,9 +59,18 @@ Route::get('/patients', function (Request $request) {
         }
     } else {
         if ($request->searchQuery && $request->searchQuery != "") {
-            $patients = Patient::where(DB::raw('CONCAT(firstname, \' \', midname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
-                ->orWhere('insurance', 'LIKE',  '%' .  $request->searchQuery . '%')
-                ->orWhere('dob', 'LIKE',  '%' .  $request->searchQuery . '%')
+            $patients = Patient::
+                // where(DB::raw('CONCAT(firstname, \' \', midname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                where(function ($query) use ($request){
+                    $query 
+                    ->where(DB::raw('CONCAT(firstname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orwhere(DB::raw('CONCAT(firstname, \' \', midname, \' \', lastname)'), 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('firstname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('midname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('lastname', 'LIKE',  '%' . $request->searchQuery . '%')
+                    ->orWhere('insurance', 'LIKE',  '%' .  $request->searchQuery . '%')
+                ->orWhere('dob', 'LIKE',  '%' .  $request->searchQuery . '%');
+                })
                 ->with('MediaManually')
                 ->withCount('MediaManually')
                 ->paginate(5);
