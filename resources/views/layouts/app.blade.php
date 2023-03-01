@@ -208,8 +208,8 @@
                                     aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('UpdateApp') }}">
                                         {{ __('lang.Update') }}
-                                      </a>
-                                   
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
@@ -226,13 +226,13 @@
                             </li>
 
                         @endguest
-                     @auth
-                     <li class="nav-item dropdown">
-                      
-                    </li>   
-                     @endauth
-                      
-                     
+                        @auth
+                            <li class="nav-item dropdown">
+
+                            </li>
+                        @endauth
+
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
