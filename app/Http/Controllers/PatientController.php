@@ -286,6 +286,13 @@ class PatientController extends Controller
     public function destroy($id)
     {
         $patient=Patient::find($id);
+        $appointments_Patient=Appointment_Patient::where('patient_id',$id)->get();
+        
+        foreach ($appointments_Patient as $appointment_patient) {
+            Appointment::find($appointment_patient->appointment_id)->delete();
+            $appointment_patient->delete();
+        }
+
         if($patient->delete())
         return back()->with('success',"Deleted Successfully");
         else 
