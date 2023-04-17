@@ -67,6 +67,7 @@
 </head>
 
 <body>
+    <span style="font-size:14px; " class="fixed-bottom mb-2 ml-2 col-1 badge badge-pill badge-success">version: {{ config('app.version') }}</span>
     <div id="app" class="relative">
         <nav @if (app()->getLocale() == 'ar') style="direction:rtl !important" @endif
             class=" navbar
