@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'version' => env('SELF_UPDATER_VERSION_INSTALLED', 'Unknown'),
 
     /*
     |--------------------------------------------------------------------------

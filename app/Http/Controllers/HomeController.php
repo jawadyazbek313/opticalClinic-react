@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use Carbon\Carbon;
+use Codedge\Updater\UpdaterManager;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -27,8 +28,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(UpdaterManager $updater)
     {
+        
         // return User::role('admin')->get();
         // Role::create(["name"=>'secretary']);
         // Permission::create(['name'=>'add patient']);
@@ -45,7 +47,7 @@ class HomeController extends Controller
         //     $permission=Permission::findById($i);
         //     $role->givePermissionTo($permission);
         // }
-
+        $AppVersion= $updater->source()->getVersionInstalled();
         $appointmentsForToday = Appointment::select('id', 'date', 'time', 'isDone', 'notes')
             ->where('date', '=', date('Y-m-d'))
             ->where('trashed', 0)
@@ -70,7 +72,7 @@ class HomeController extends Controller
             $countmeappointmentsTomorrow = Appointment::select('id', 'date', 'isDone', 'notes')
             ->where('date', '>', Carbon::today()->toDateString())->count();
          
-        return view('home', compact('appointmentsTomorrow', 'countme', 'patients','appointmentsForToday','countmeappointmentsTomorrow'));
+        return view('home', compact('appointmentsTomorrow', 'countme', 'patients','appointmentsForToday','countmeappointmentsTomorrow','AppVersion'));
     }
 
     function fetch_data(Request $request)
@@ -96,6 +98,7 @@ class HomeController extends Controller
                 ->count();
 
             $AppointmentsFor='tomorrow';
+            
             return view('AppointmentsForHomePage', compact('appointments', 'countme','AppointmentsFor'))->render();
         }
     }
