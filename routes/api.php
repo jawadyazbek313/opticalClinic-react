@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
+use App\Http\Controllers\PatientController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -129,3 +129,6 @@ Route::get('/DeleteFile', function (Request $request) {
         return "Success";
     } else return "fail";
 })->name("file.delete");
+
+
+

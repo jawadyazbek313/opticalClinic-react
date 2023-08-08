@@ -298,4 +298,44 @@ class PatientController extends Controller
         else 
         return back()->with('failed',"Failed to Delete");
     }
+    
+public function findSimilarPatients()
+{
+    $patients = Patient::all(); // Retrieve all patients from the database
+
+    $groupedPatients = [];
+
+    foreach ($patients as $patient) {
+        // Check if a group with the lastname already exists
+        $groupKey = $this->getGroupKey($groupedPatients, $patient->lastname);
+
+        // If a group already exists, add the patient to that group
+        if ($groupKey !== null) {
+            $groupedPatients[$groupKey]['patients'][] = $patient;
+        } else {
+            // If a group does not exist, create a new group for the lastname
+            $groupedPatients[] = [
+                'lastname' => $patient->lastname,
+                'patients' => [$patient],
+            ];
+        }
+    }
+
+    // Filter out groups that have only one patient (no duplicates)
+    $groupedPatients = array_filter($groupedPatients, function ($group) {
+        return count($group['patients']) > 1;
+    });
+
+    return \dd($groupedPatients);
+}
+
+private function getGroupKey($groups, $lastname)
+{
+    foreach ($groups as $key => $group) {
+        if ($group['lastname'] === $lastname) {
+            return $key;
+        }
+    }
+    return null;
+}
 }

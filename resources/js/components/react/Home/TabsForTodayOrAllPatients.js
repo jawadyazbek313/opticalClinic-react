@@ -48,7 +48,7 @@ export default function TabsForTodayOrAllPatients() {
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Tabs value={value} onChange={handleChange} variant='fullWidth' aria-label="basic tabs example">
           <Tab label="Today's Appointment Patient" {...a11yProps(0)} />
           <Tab label="All" {...a11yProps(1)} />
       

@@ -139,3 +139,5 @@ Route::get('/UpdateApplication', function (UpdaterManager $updater) {
 })->name('UpdateApp')->middleware('auth');
 
 // Route to Update The program Via the button
+Route::get('/findDuplicateMembers',[App\Http\Controllers\PatientController::class, 'findSimilarPatients']
+)->name("findDuplicateMembers");
