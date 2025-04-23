@@ -1,22 +1,47 @@
 # Optical Clinic Management System
 
-## Overview
-The **Optical Clinic Management System** is a React-based web application designed to streamline the operations of an optical clinic. It provides a modern user interface for managing patient records, appointments, prescriptions, and inventory, ensuring efficient clinic management.
+A comprehensive web application for managing an optical clinic, built with Laravel and modern frontend technologies.
 
 ## Features
-- **User Authentication**: Secure login system with role-based access control (Admin, Receptionist, and Optometrist).
-- **Patient Management**: Add, edit, and view patient records, including medical history and prescriptions.
-- **Appointment Scheduling**: Book, reschedule, and cancel patient appointments.
-- **Prescription Management**: Record and manage patient prescriptions with detailed specifications.
-- **Inventory Management**: Track eyeglasses, lenses, and other optical products.
-- **Billing & Payments**: Generate invoices and track payments.
-- **Reports & Analytics**: View clinic performance metrics and generate reports.
-- **Real-time Notifications**: Alerts for upcoming appointments and inventory stock levels.
+
+- **Patient Management**
+  - Add, edit, and view patient records
+  - Store patient details: name, gender, insurance, blood type, DOB, job, address, contact number, diagnosis, and more
+- **Appointment Scheduling**
+  - Create, edit, and manage appointments
+  - Modal-based appointment creation and editing
+  - Track appointment status (Done/Not Done)
+  - Add appointment notes and payment details
+- **Prescription Handling**
+  - Record and display prescription details (Sphere, Cylinder, Axis for both eyes, Distant/Near, PD)
+- **Payment Management**
+  - Record payment type (cash, gift, free, other) and currency (LBP, USD)
+  - Track payment status and history
+- **Localization & Translation**
+  - Multi-language support (including RTL for Arabic)
+  - Integrated translation manager for easy language file management
+- **User Interface**
+  - Responsive design using Bootstrap
+  - Dynamic forms with validation and error handling
+  - Uses Livewire for reactive components
+- **Notifications**
+  - Toastr notifications for user feedback
+- **Other Features**
+  - Self-update notification system
+  - Integration with Laravel's artisan GUI for command management
+
+## Tech Stack
+
+- **Backend:** Laravel PHP Framework
+- **Frontend:** Blade, Bootstrap, Livewire, jQuery, Alpine.js
+- **JS Libraries:** React, Vue (for specific components), Toastr, Datepicker, Timepicker
+- **Build Tools:** Laravel Mix, TailwindCSS, Sass
 
 ## Installation
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-repo/opticalClinic-react.git
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/opticalClinic.git
    ```
 2. Navigate to the project folder:
    ```sh
