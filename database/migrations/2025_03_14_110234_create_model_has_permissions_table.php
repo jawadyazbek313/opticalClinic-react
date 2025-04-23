@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateModelHasPermissionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,11 @@ class CreateModelHasPermissionsTable extends Migration
     {
         Schema::create('model_has_permissions', function (Blueprint $table) {
             $table->unsignedBigInteger('permission_id');
-            $table->string('model_type')->nullable();
+            $table->string('model_type');
             $table->unsignedBigInteger('model_id');
-            
+
+            $table->index(['model_id', 'model_type']);
             $table->primary(['permission_id', 'model_id', 'model_type']);
-            $table->index(['model_id', 'model_type'], 'model_has_permissions_model_id_model_type_index');
-            $table->foreign('permission_id', 'model_has_permissions_permission_id_foreign')->references('id')->on('permissions')->onDelete('cascade');
         });
     }
 
@@ -33,4 +32,4 @@ class CreateModelHasPermissionsTable extends Migration
     {
         Schema::dropIfExists('model_has_permissions');
     }
-}
+};

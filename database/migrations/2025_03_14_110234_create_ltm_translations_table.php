@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateLtmTranslationsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateLtmTranslationsTable extends Migration
     public function up()
     {
         Schema::create('ltm_translations', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->integer('status')->default(0);
             $table->string('locale')->nullable();
             $table->string('group')->nullable();
@@ -33,4 +33,4 @@ class CreateLtmTranslationsTable extends Migration
     {
         Schema::dropIfExists('ltm_translations');
     }
-}
+};

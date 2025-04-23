@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePatientsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreatePatientsTable extends Migration
     public function up()
     {
         Schema::create('patients', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('firstname', 65)->nullable();
             $table->string('midname', 65)->nullable();
             $table->string('lastname', 65)->nullable();
@@ -73,4 +73,4 @@ class CreatePatientsTable extends Migration
     {
         Schema::dropIfExists('patients');
     }
-}
+};

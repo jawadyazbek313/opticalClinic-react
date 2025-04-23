@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateAppointmentsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,11 @@ class CreateAppointmentsTable extends Migration
     public function up()
     {
         Schema::create('appointments', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('date', 45)->nullable();
             $table->string('time', 25)->nullable();
-            $table->boolean('isDone')->nullable()->default(0);
-            $table->boolean('isAborted')->default(0);
+            $table->boolean('isDone')->nullable()->default(false);
+            $table->boolean('isAborted')->default(false);
             $table->text('notes')->nullable();
             $table->text('dist_r_sphere')->nullable();
             $table->text('dist_l_sphere')->nullable();
@@ -34,9 +34,9 @@ class CreateAppointmentsTable extends Migration
             $table->text('near_r_axis')->nullable();
             $table->text('near_l_axis')->nullable();
             $table->text('pdnear')->nullable();
-            $table->timestamp('created_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('created_at')->useCurrentOnUpdate()->useCurrent();
             $table->timestamp('updated_at')->nullable();
-            $table->boolean('trashed')->default(0);
+            $table->boolean('trashed')->default(false);
         });
     }
 
@@ -49,4 +49,4 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::dropIfExists('appointments');
     }
-}
+};
